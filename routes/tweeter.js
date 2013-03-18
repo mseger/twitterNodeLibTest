@@ -22,7 +22,14 @@ exports.searchTweets = function(req, res){
 		try {
   			var relevantTweets = reply.statuses;
   			for(var i=0; i<relevantTweets.length; i++){
-  				console.log("The next tweet is\n\n ", relevantTweets[i].text);
+  				// grab each tweet, do basic analysis 
+  				var currTweet = relevantTweets[i];
+  				console.log("\n\n\n\nThe next tweet is: \n", currTweet.text);
+  				console.log("\nWith RT count: ", currTweet.retweet_count);
+
+  				// grab the user associated with that tweet
+  				console.log("\nThe user for that tweet is: ", currTweet.user.name);
+  				console.log("\nWith 'friend' count: ", currTweet.user.friends_count);
   			}
 		} catch(e){
   			// An error has occured, log it
@@ -30,5 +37,6 @@ exports.searchTweets = function(req, res){
 		}
 	});
 }
+
 
 // should contemplate caching these in some way to build up a db for popular topics
