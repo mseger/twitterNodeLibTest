@@ -1,4 +1,6 @@
 var Twit = require('twit')
+var Tweet = require('../models/tweet')
+var Tweeter = require('../models/tweeter')
 
 var T = new Twit({
     consumer_key:         'XkbATPecis4rGUj8w2PhQ'
@@ -24,16 +26,25 @@ exports.searchTweets = function(req, res){
   			for(var i=0; i<relevantTweets.length; i++){
   				// grab each tweet, do basic analysis 
   				var currTweet = relevantTweets[i];
-  				console.log("\n\n\n\nThe next tweet is: \n", currTweet.text);
-  				console.log("\nWith RT count: ", currTweet.retweet_count);
 
-  				// grab the user associated with that tweet
-  				console.log("\nThe user for that tweet is: ", currTweet.user.name);
-  				console.log("\nWith 'friend' count: ", currTweet.user.friends_count);
+  				// create a new Tweet with the relevant information 
+  				var new_tweet = new Tweet({text: currTweet.text, num_retweets: currTweet.retweet_count, owner_id: currTweet.user.id});
+  				new_tweet.save(function (err){
+  					if(err)
+  						return console.log("Couldn't parse + save tweet: ", err);
+  					// now to save the user information associated with each tweet
+  					var new_user = new Tweeter({name: currTweet.user.name, user_id: currTweet.user.id, num_followers: currTweet.user.friends_count, num_tweets: currTweet.user.statuses_count});
+  					new_user.save(function (err){
+  						if(err)
+  							return console.log("Couldn't parse + save user info associated with tweet: ", err);
+  						console.log("Successfully saved: ", new_tweet);
+  						console.log("\nUnder user: ", new_user);
+  					});
+  				});
   			}
-		} catch(e){
+		}catch(e){
   			// An error has occured, log it
-  			console.log("Error while parsing tweets: ", e);
+  			console.log("Error while parsing tweets: ", e);	
 		}
 	});
 }

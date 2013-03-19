@@ -8,7 +8,8 @@ var express = require('express')
   , user = require('./routes/user')
   , tweeter = require('./routes/tweeter')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , mongoose = require('mongoose');
 
 var app = express();
 
@@ -28,6 +29,7 @@ app.configure(function(){
 
 app.configure('development', function(){
   app.use(express.errorHandler());
+  mongoose.connect(process.env.MONGOLAB_URI || 'localhost');
 });
 
 // GETS
