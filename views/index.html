@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Superconductors</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:200' rel='stylesheet' type='text/css'>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <link href="../public/stylesheets/style.css" rel="stylesheet" media="screen">
+  </head>
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner" style="padding-bottom: 8px; padding-right: 20px">
+          <form class="navbar-search pull-right">
+            <button type="submit" class="btn btn-warning">Login</button>
+          </form>
+      </div>
+    </div>
+    <br>
+    <div id="myCarousel" class="carousel slide">
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+      <!-- Carousel items -->
+      <div class="carousel-inner">
+        <div class="active item"><img src="../public/images/tv1.png"></div>
+        <div class="item"><img src="../public/images/tv2.png"></div>
+        <div class="item"><img src="../public/images/tv3.png"></div>
+      </div>
+      <!-- Carousel nav -->
+      <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+      <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+    </div>
+    <div class="row">
+      <div class="span12 offset5">
+        <br>
+        <h1> Search for your favorite show:</h1> 
+        <br>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span12 offset6">
+      <center>
+        <form class="navbar-search pull-left">
+          <input type="text" class="search-query" placeholder="Search">
+          <button type="submit" class="btn">Go</button>
+        </form>
+      </center>
+      </div>
+    </div>
+    <div class="row">
+      <br><br><br>
+        <div class="span11" id="circles">
+          <center> <h2> Superconduction Map </h2> </center>
+          <hr>
+              <script type="text/javascript">
+                var sampleSVG = d3.select("#circles")
+                  .append("svg:svg")
+                  .attr("width", 600)
+                  .attr("height", 500);
+           
+              sampleSVG.append("svg:circle")
+                  .style("stroke", "black")
+                  .style("fill", "#00BFFF")
+                  .attr("r", 40)
+                  .attr("cx", 50)
+                  .attr("cy", 50)
+
+              sampleSVG.append("svg:circle")
+                  .style("stroke", "black")
+                  .style("fill", "#00BFFF")
+                  .attr("r", 40)
+                  .attr("cx", 200)
+                  .attr("cy", 50)
+              </script>
+        </div>
+        <div class="span4 pull-right" id="leaderboard">
+          <center> <h2> Top Superconductors </h2> </center>
+          <hr>
+          <p>
+            <center>
+              <a href=""> @therealzkeelz </a>
+              <br>
+              <a href=""> @dismantled </a>
+              <br>
+              <a href=""> @juliananazare </a>
+            </center>
+          </p>
+        </div>
+    </div>
+    <script>
+      $('.carousel').carousel({
+        interval: 2000
+      })
+    </script>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="../public/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
