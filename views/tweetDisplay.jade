@@ -1,0 +1,16 @@
+extends layout
+
+block content
+	div(id="searchParam")
+		form(name="compose_tweet", action="/displayTweets", method="post")
+			| Keyterm to search for: 
+			input(type="text", name="searchParameter")
+			input(type="submit", value="Search")
+
+	div(id="display_tweets")
+		each tweet, i in tweets
+			div(value=tweet, id="tweet_id") 
+				b #{tweet.owner_id}
+				br
+				| #{tweet.text}
+			br

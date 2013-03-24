@@ -1,5 +1,86 @@
-extends layout
-
-block content
-  h1= title
-  p Welcome to #{title}
+!!! 5
+html
+  head
+    title Superconductors
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(href='/bootstrap/css/bootstrap.min.css', rel='stylesheet', media='screen')
+    link(href='http://fonts.googleapis.com/css?family=Titillium+Web:200', rel='stylesheet', type='text/css')
+    script(src='http://d3js.org/d3.v3.min.js')
+    link(href='/stylesheets/style.css', rel='stylesheet', media='screen')
+  body
+    .navbar.navbar-inverse.navbar-fixed-top
+      .navbar-inner(style='padding-bottom: 8px; padding-right: 20px;')
+        form.navbar-search.pull-right
+          button.btn.btn-warning(type='submit') Login
+    br
+    #myCarousel.carousel.slide
+      ol.carousel-indicators
+        li.active(data-target='#myCarousel', data-slide-to='0')
+        li(data-target='#myCarousel', data-slide-to='1')
+        li(data-target='#myCarousel', data-slide-to='2')
+      //
+         Carousel items 
+      .carousel-inner
+        .active.item
+          img(src='/images/tv1.png')
+        .item
+          img(src='/images/tv2.png')
+        .item
+          img(src='/images/tv3.png')
+      //
+         Carousel nav 
+      a.carousel-control.left(href='#myCarousel', data-slide='prev') ‹
+      a.carousel-control.right(href='#myCarousel', data-slide='next') ›
+    .row
+      .span12.offset5
+        br
+        h1  Search for your favorite show:
+        br
+    .row
+      .span12.offset6
+        center
+          form.navbar-search.pull-left(name="showToSearch", action="/searchTweets", method="post")
+            input.search-query(type='text', placeholder='Search', name="desiredShow")
+            button.btn(type='submit') Go
+    .row
+      br
+      br
+      br
+      #circles.span11
+        center
+          h2  Superconduction Map 
+        hr
+        script(type='text/javascript')
+          var sampleSVG = d3.select("#circles")
+          .append("svg:svg")
+          .attr("width", 600)
+          .attr("height", 500);
+          sampleSVG.append("svg:circle")
+          .style("stroke", "black")
+          .style("fill", "#00BFFF")
+          .attr("r", 40)
+          .attr("cx", 50)
+          .attr("cy", 50)
+          sampleSVG.append("svg:circle")
+          .style("stroke", "black")
+          .style("fill", "#00BFFF")
+          .attr("r", 40)
+          .attr("cx", 200)
+          .attr("cy", 50)
+      #leaderboard.span4.pull-right
+        center
+          h2  Top Superconductors 
+        hr
+        p
+          center
+            a(href='')  @therealzkeelz 
+            br
+            a(href='')  @dismantled 
+            br
+            a(href='')  @juliananazare 
+    script
+      $('.carousel').carousel({
+      interval: 2000
+      })
+    script(src='http://code.jquery.com/jquery.js')
+    script(src='/bootstrap/js/bootstrap.min.js')

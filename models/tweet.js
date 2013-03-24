@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'), Schema = mongoose.Schema
 
 var tweetSchema = new Schema({
+	keyword: String, 
 	text: String,
 	num_retweets: Number, 
 	owner_id: Number

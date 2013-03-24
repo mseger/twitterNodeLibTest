@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies.
  */
@@ -36,9 +35,17 @@ app.configure('development', function(){
 app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/tweeter/new', tweeter.newTweet);
-app.get('/searchTweets', tweeter.searchTweets);
+app.get('/deleteAllTweets', tweeter.deleteAllTweets);
+app.get('/deleteAllTweeters', tweeter.deleteAllTweeters);
 
 // POSTS
+app.post('/searchTweets', tweeter.searchTweets);
+
+// FOR DEBUGGING PURPOSES
+app.get('/displayTweets', tweeter.displayRelevantTweets);
+app.post('/displayTweets', tweeter.displayRelevantTweets);
+
+
 
 
 http.createServer(app).listen(app.get('port'), function(){
