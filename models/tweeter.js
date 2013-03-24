@@ -2,6 +2,7 @@ var mongoose = require('mongoose'), Schema = mongoose.Schema
 
 var tweeterSchema = new Schema({
 	name: String,
+	keyword: String, 
 	user_id: Number, 
 	num_followers: Number, 
 	num_tweets: Number

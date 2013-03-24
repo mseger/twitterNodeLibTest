@@ -2,10 +2,13 @@
 html
   head
     title Superconductors
+    script(src='http://code.jquery.com/jquery.js')
+    script(src='/bootstrap/js/bootstrap.min.js')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     link(href='/bootstrap/css/bootstrap.min.css', rel='stylesheet', media='screen')
     link(href='http://fonts.googleapis.com/css?family=Titillium+Web:200', rel='stylesheet', type='text/css')
     script(src='http://d3js.org/d3.v3.min.js')
+    script(src='/javascripts/hide_and_seek.js')
     link(href='/stylesheets/style.css', rel='stylesheet', media='screen')
   body
     .navbar.navbar-inverse.navbar-fixed-top
@@ -39,14 +42,14 @@ html
     .row
       .span12.offset6
         center
-          form.navbar-search.pull-left(name="showToSearch", action="/searchTweets", method="post")
+          form.navbar-search.pull-left(id= "showToSearch_form", name="showToSearch", action="/searchTweets", method="post")
             input.search-query(type='text', placeholder='Search', name="desiredShow")
             button.btn(type='submit') Go
     .row
       br
       br
       br
-      #circles.span11
+      #circles.span11(id="d3_visualization", style="display:none")
         center
           h2  Superconduction Map 
         hr
@@ -67,20 +70,19 @@ html
           .attr("r", 40)
           .attr("cx", 200)
           .attr("cy", 50)
-      #leaderboard.span4.pull-right
+      #leaderboard.span4.pull-right(id="leaderboard", style="display:none")
         center
           h2  Top Superconductors 
         hr
         p
           center
-            a(href='')  @therealzkeelz 
+            a(href='https://twitter.com/dismanntled', target="_blank")  @dismanntled 
             br
-            a(href='')  @dismantled 
+            a(href='https://twitter.com/juliananazare', target="_blank")  @juliananazare 
             br
-            a(href='')  @juliananazare 
+            a(href='https://twitter.com/TheRealKeelz', target="_blank")  @therealzkeelz 
+
     script
       $('.carousel').carousel({
       interval: 2000
       })
-    script(src='http://code.jquery.com/jquery.js')
-    script(src='/bootstrap/js/bootstrap.min.js')

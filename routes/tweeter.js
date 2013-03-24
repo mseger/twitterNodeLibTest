@@ -33,20 +33,24 @@ exports.searchTweets = function(req, res){
             if(err)
               return console.log("Couldn't parse + save tweet: ", err);
             // now to save the user information associated with each tweet
-            var new_user = new Tweeter({name: currTweet.user.name, user_id: currTweet.user.id, num_followers: currTweet.user.friends_count, num_tweets: currTweet.user.statuses_count});
+            var new_user = new Tweeter({name: currTweet.user.name, keyword: req.body.desiredShow, user_id: currTweet.user.id, num_followers: currTweet.user.friends_count, num_tweets: currTweet.user.statuses_count});
             new_user.save(function (err){
               if(err)
                 return console.log("Couldn't parse + save user info associated with tweet: ", err);
             });
           });
         }
-        res.redirect('/displayTweets');
+        //res.redirect('/displayTweets');
     }catch(e){
         // An error has occured, log it
         console.log("Error while parsing tweets: ", e); 
     }
   });
 }
+
+/*exports.rankSuperconductors = function(req, res){
+  var Tweeters = Tweeter.find({keyword: req.body.searchParameter})
+}*/
 
 // FOR DEBUGGING PURPOSES
 exports.displayRelevantTweets = function(req, res){
