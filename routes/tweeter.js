@@ -40,7 +40,9 @@ exports.searchTweets = function(req, res){
             });
           });
         }
-        rankSuperconductors(req.body.desiredShow);
+        rankSuperconductors(req.body.desiredShow, function (rankings){
+          res.render('_results_partial', {tweeters: rankings});
+        });
     }catch(e){
         // An error has occured, log it
         console.log("Error while parsing tweets: ", e); 
@@ -48,12 +50,16 @@ exports.searchTweets = function(req, res){
   });
 }
 
-function rankSuperconductors(keyword){
+function rankSuperconductors(keyword, next){
   var Tweeters = Tweeter.find({keyword: keyword}).exec(function (err, docs){
     if(err)
       return console.log("Welp. Couldn't retrieve and display your tweets: ", err);
-    // what we should do: either make the leaderboard & d3 visualizations partials, or just move to another page
-    res.render('tweetDisplay', {tweets: docs, title: 'Relevant Tweets'});
+    var superconductorList = new Array();
+    for(var i=0; i<docs.length; i++){
+      superconductorList.push(docs[i].name);
+      console.log(docs[i].name);
+    }
+    next(superconductorList);
   });
 }
 
