@@ -1,0 +1,21 @@
+div.circles.span11(id="d3_visualization", style="display:none")
+  center
+    h2  Superconduction Map 
+  hr
+  script(type='text/javascript')
+    var sampleSVG = d3.select("#circles")
+    .append("svg:svg")
+    .attr("width", 600)
+    .attr("height", 500);
+    sampleSVG.append("svg:circle")
+    .style("stroke", "black")
+    .style("fill", "#00BFFF")
+    .attr("r", 40)
+    .attr("cx", 50)
+    .attr("cy", 50)
+    sampleSVG.append("svg:circle")
+    .style("stroke", "black")
+    .style("fill", "#00BFFF")
+    .attr("r", 40)
+    .attr("cx", 200)
+    .attr("cy", 50)

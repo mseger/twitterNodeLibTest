@@ -40,7 +40,7 @@ exports.searchTweets = function(req, res){
             });
           });
         }
-        //res.redirect('/displayTweets');
+        rankSuperconductors(req.body.desiredShow);
     }catch(e){
         // An error has occured, log it
         console.log("Error while parsing tweets: ", e); 
@@ -48,9 +48,14 @@ exports.searchTweets = function(req, res){
   });
 }
 
-/*exports.rankSuperconductors = function(req, res){
-  var Tweeters = Tweeter.find({keyword: req.body.searchParameter})
-}*/
+function rankSuperconductors(keyword){
+  var Tweeters = Tweeter.find({keyword: keyword}).exec(function (err, docs){
+    if(err)
+      return console.log("Welp. Couldn't retrieve and display your tweets: ", err);
+    // what we should do: either make the leaderboard & d3 visualizations partials, or just move to another page
+    res.render('tweetDisplay', {tweets: docs, title: 'Relevant Tweets'});
+  });
+}
 
 // FOR DEBUGGING PURPOSES
 exports.displayRelevantTweets = function(req, res){

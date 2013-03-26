@@ -1,0 +1,34 @@
+div.circles.span11(id="d3_visualization", style="display:none")
+  center
+    h2  Superconduction Map 
+  hr
+  script(type='text/javascript')
+    var sampleSVG = d3.select("#circles")
+    .append("svg:svg")
+    .attr("width", 600)
+    .attr("height", 500);
+    sampleSVG.append("svg:circle")
+    .style("stroke", "black")
+    .style("fill", "#00BFFF")
+    .attr("r", 40)
+    .attr("cx", 50)
+    .attr("cy", 50)
+    sampleSVG.append("svg:circle")
+    .style("stroke", "black")
+    .style("fill", "#00BFFF")
+    .attr("r", 40)
+    .attr("cx", 200)
+    .attr("cy", 50)
+
+
+div.leaderboard.span4.pull-right(id="leaderboard", style="display:none")
+    center
+      h2  Top Superconductors 
+    hr
+    p
+      center
+        a(href='https://twitter.com/dismanntled', target="_blank")  @dismanntled 
+        br
+        a(href='https://twitter.com/juliananazare', target="_blank")  @juliananazare 
+        br
+        a(href='https://twitter.com/TheRealKeelz', target="_blank")  @therealzkeelz 
