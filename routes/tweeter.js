@@ -1,6 +1,8 @@
 var Twit = require('twit')
+var async = require('async')
 var Tweet = require('../models/tweet')
 var Tweeter = require('../models/tweeter')
+var Superconductor = require('../models/superconductor')
 
 var T = new Twit({
     consumer_key:         'XkbATPecis4rGUj8w2PhQ'
@@ -15,6 +17,59 @@ exports.newTweet = function(req, res){
 			console.log("Error tweeting: ", err);
 		res.redirect('http://twitter.com/dismanntled');
 	});
+}
+
+exports.testAsync = function(req, res){
+  async.series([
+      function clearing_tweets(callback){
+        Superconductor.remove({}, function(err){
+          console.log('removed superconductors collection');
+          callback(null);    
+        });
+      }, 
+      function searching(callback){
+        T.get('search/tweets', {q: req.body.asyncSearchTerm}, function (err, reply){
+          var relevantTweets = reply.statuses;
+
+          async.map(relevantTweets, function (currTweet, next) {
+            // create a new Tweet with the relevant information 
+            var new_superconductor = new Superconductor({keyword: req.body.asyncSearchTerm, tweet_text: currTweet.text, num_retweets: currTweet.retweet_count, owner_id: currTweet.user.id, user_handle: "", user_name: currTweet.user.name});
+            new_superconductor.save(function(err){
+              if(err)
+                console.log("Couldn't save superconductor");
+              console.log("saving superconductor");
+            });
+            console.log("Made it through step 1");
+            next(null, Superconductor);
+          }, function (err, results) {
+            // all done with each of them
+            callback(null, results);
+          })
+        });
+      },
+      function ranking(callback){
+        console.log("Entering step 2");
+        Superconductor.find({keyword: req.body.asyncSearchTerm}).exec(function (err, docs){
+          console.log("Querying DB in step 2");
+          if(err)
+            return console.log("Welp. Couldn't retrieve and display your tweets: ", err);
+          var superconductorList = new Array();
+          for(var i=0; i<docs.length; i++){
+            superconductorList.push(docs[i].name);
+          }
+          console.log("Made it through step 2");
+          callback(null, superconductorList);
+        });
+      },
+      function displaying(superconductorList, callback){
+        //console.log("The superconductorList we're displaying is: ", superconductorList);
+        res.render('_results_partial', {tweeters: superconductorList});
+        console.log("Made it through step 3");
+        callback(null, 'done');
+      }
+  ], function (err, result) {
+      console.log("Finished async");   
+  });
 }
 
 exports.searchTweets = function(req, res){
@@ -67,6 +122,14 @@ function rankSuperconductors(keyword, next){
 // FOR DEBUGGING PURPOSES
 exports.displayRelevantTweets = function(req, res){
   var Tweets = Tweet.find({keyword: req.body.searchParameter}).exec(function (err, docs){
+    if(err)
+      return console.log("Welp. Couldn't retrieve and display your tweets: ", err);
+    res.render('tweetDisplay', {tweets: docs, title: 'Relevant Tweets'});
+  });
+}
+
+exports.displaySuperconductors = function(req, res){
+  var Superconductors = Superconductor.find({keyword: 'family guy'}).exec(function (err, docs){
     if(err)
       return console.log("Welp. Couldn't retrieve and display your tweets: ", err);
     res.render('tweetDisplay', {tweets: docs, title: 'Relevant Tweets'});

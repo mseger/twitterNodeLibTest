@@ -55,6 +55,9 @@ html
           form.navbar-search.pull-left(id= "showToSearch_form", name="showToSearch", action="/searchTweets", method="post")
             input.search-query(type='text', placeholder='Search', name="desiredShow")
             button.btn(type='submit') Go
+          form.navbar-search.pull-left(id= "async_form", name="async_test", action="/testAsync", method="post")
+            input.search-query(type='text', placeholder='term to async', name="asyncSearchTerm")
+            button.btn(type='submit') Test Async!
     .row(id="results_row")
       br
       br

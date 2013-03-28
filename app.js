@@ -37,13 +37,16 @@ app.get('/users', user.list);
 app.get('/tweeter/new', tweeter.newTweet);
 app.get('/deleteAllTweets', tweeter.deleteAllTweets);
 app.get('/deleteAllTweeters', tweeter.deleteAllTweeters);
+app.get('/testAsync', tweeter.testAsync);
 
 // POSTS
 app.post('/searchTweets', tweeter.searchTweets);
+app.post('/testAsync', tweeter.testAsync);
 
 // FOR DEBUGGING PURPOSES
 app.get('/displayTweets', tweeter.displayRelevantTweets);
 app.post('/displayTweets', tweeter.displayRelevantTweets);
+app.get('/displaySuperconductors', tweeter.displaySuperconductors);
 
 
 
