@@ -39,8 +39,7 @@ exports.testAsync = function(req, res){
                 console.log("Couldn't save superconductor");
               console.log("saving superconductor");
             });
-            console.log("Made it through step 1");
-            next(null, Superconductor);
+            next(null, new_superconductor);
           }, function (err, results) {
             // all done with each of them
             callback(null, results);
