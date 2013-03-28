@@ -55,6 +55,7 @@ function rankSuperconductors(keyword, next){
     if(err)
       return console.log("Welp. Couldn't retrieve and display your tweets: ", err);
     var superconductorList = new Array();
+    console.log(docs[1]);
     for(var i=0; i<docs.length; i++){
       superconductorList.push(docs[i].name);
       console.log(docs[i].name);
