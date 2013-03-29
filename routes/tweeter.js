@@ -31,10 +31,11 @@ exports.testAsync = function(req, res){
         console.log("Entering step 1");
         T.get('search/tweets', {q: req.body.asyncSearchTerm}, function (err, reply){
           var relevantTweets = reply.statuses;
+          console.log("The corpus of tweets is: ", relevantTweets);
 
           async.map(relevantTweets, function (currTweet, next) {
             // create a new Tweet with the relevant information 
-            var new_superconductor = new Superconductor({keyword: req.body.asyncSearchTerm, tweet_text: currTweet.text, num_retweets: currTweet.retweet_count, owner_id: currTweet.user.id, user_handle: "", user_name: currTweet.user.name});
+            var new_superconductor = new Superconductor({keyword: req.body.asyncSearchTerm, tweet_text: currTweet.text, num_retweets: currTweet.retweet_count, owner_id: currTweet.user.id, user_handle: currTweet.user.screen_name, user_name: currTweet.user.name, num_followers: currTweet.user.followers_count});
             new_superconductor.save(function(err){
               if(err)
                 console.log("Couldn't save superconductor");

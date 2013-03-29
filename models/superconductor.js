@@ -4,11 +4,11 @@ var superconductorSchema = new Schema({
 	keyword: String, 
 	tweet_text: String, 
 	num_retweets: Number, 
-	owner_id: Number, 
+	owner_id: Number,  
 	user_handle: String, 
-	user_name: String 
+	user_name: String, 
+	num_followers: Number
 
-	// note to self: want to add in num_followers as well as handle
 });
 
 var Superconductor = mongoose.model('Superconductor', superconductorSchema);

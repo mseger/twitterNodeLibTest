@@ -68,11 +68,11 @@ div.leaderboard.span4.pull-right(id="leaderboard", style="display:none")
             | Search for a term to display results!
         else
             each tweeter, i in tweeters
-                a #{tweeter.user_name} with #{tweeter.num_retweets}
+                a(href='https://twitter.com/' + '#{tweeter.user_handle}', target="_blank") #{tweeter.user_handle}
+                br
+                |  With #{tweeter.num_retweets} retweets and #{tweeter.num_followers} followers
                 br
 
-            a(href='https://twitter.com/dismanntled', target="_blank")  @dismanntled 
-            br
-            a(href='https://twitter.com/juliananazare', target="_blank")  @juliananazare 
-            br
-            a(href='https://twitter.com/TheRealKeelz', target="_blank")  @therealzkeelz 
+
+
+
