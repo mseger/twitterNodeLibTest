@@ -109,7 +109,24 @@ div.leaderboard.span4.pull-right(id="leaderboard", style="display:none")
                 br     
                 br
 
+div.leaderboard.span11(id="tweets-board", style="display:none")
+  h2 What Superconductors are Saying
+  hr
+  p
+    if tweeters.length == 0 
+          | Search for a term to display results!
+      else
+        table.table-striped
+          thead
+              tr
+                th User     
+                th Tweet
+            tbody
+              each tweeter, i in tweeters
+                tr
+                  td(style="color:#3147E9")   #{tweeter.user_handle}  
+                  td(style="padding-left:20px")   #{tweeter.tweet_text}  
 
-
+                 
 
 
