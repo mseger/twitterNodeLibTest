@@ -20,14 +20,15 @@ exports.newTweet = function(req, res){
 }
 
 exports.testAsync = function(req, res){
-  async.series([
-      function clearing_tweets(callback){
+  async.auto({
+      clearing_tweets: function(callback){
         Superconductor.remove({}, function(err){
           console.log('removed superconductors collection');
           callback(null);    
         });
       }, 
-      function searching(callback){
+      searching: ["clearing_tweets", function(callback){
+        console.log("Entering step 1");
         T.get('search/tweets', {q: req.body.asyncSearchTerm}, function (err, reply){
           var relevantTweets = reply.statuses;
 
@@ -38,35 +39,29 @@ exports.testAsync = function(req, res){
               if(err)
                 console.log("Couldn't save superconductor");
               console.log("saving superconductor");
+              next(null);
             });
-            next(null, new_superconductor);
           }, function (err, results) {
             // all done with each of them
             callback(null, results);
           })
         });
-      },
-      function ranking(callback){
+      }],
+      ranking: ["searching", function(callback){
         console.log("Entering step 2");
         Superconductor.find({keyword: req.body.asyncSearchTerm}).exec(function (err, docs){
-          console.log("Querying DB in step 2");
+          //console.log("RESULTS OF Querying DB in step 2", docs);
           if(err)
-            return console.log("Welp. Couldn't retrieve and display your tweets: ", err);
-          var superconductorList = new Array();
-          for(var i=0; i<docs.length; i++){
-            superconductorList.push(docs[i].name);
-          }
-          console.log("Made it through step 2");
-          callback(null, superconductorList);
+            return callback(err, "Couldn't retrieve Superconductors from DB");
+          callback(null, docs);
         });
-      },
-      function displaying(superconductorList, callback){
-        //console.log("The superconductorList we're displaying is: ", superconductorList);
-        res.render('_results_partial', {tweeters: superconductorList});
-        console.log("Made it through step 3");
+      }],
+      displaying: ["ranking", function(callback, results){
+        console.log("The superconductorList we're displaying is: ", results.ranking);
+        res.render('_results_partial', {tweeters: results.ranking});
         callback(null, 'done');
-      }
-  ], function (err, result) {
+      }]
+  }, function (err, result) {
       console.log("Finished async");   
   });
 }

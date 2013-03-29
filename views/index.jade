@@ -52,12 +52,18 @@ html
     .row
       .span12.offset6
         center
-          form.navbar-search.pull-left(id= "showToSearch_form", name="showToSearch", action="/searchTweets", method="post")
+          //form.navbar-search.pull-left(id= "redirect_form", name="redirectForm", action="/goToResultsPage", method="post")
+            input.search-query(type='text', placeholder='Search', name="desiredShow")
+            button.btn(type='submit') Go
+          //form.navbar-search.pull-left(id= "showToSearch_form", name="showToSearch", action="/searchTweets", method="post")
             input.search-query(type='text', placeholder='Search', name="desiredShow")
             button.btn(type='submit') Go
           form.navbar-search.pull-left(id= "async_form", name="async_test", action="/testAsync", method="post")
-            input.search-query(type='text', placeholder='term to async', name="asyncSearchTerm")
-            button.btn(type='submit') Test Async!
+            input.search-query(type='text', placeholder='Search', name="asyncSearchTerm")
+            button.btn(type='submit') Go
+    br
+    br
+    br
     .row(id="results_row")
       br
       br

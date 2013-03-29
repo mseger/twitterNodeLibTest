@@ -38,10 +38,12 @@ app.get('/tweeter/new', tweeter.newTweet);
 app.get('/deleteAllTweets', tweeter.deleteAllTweets);
 app.get('/deleteAllTweeters', tweeter.deleteAllTweeters);
 app.get('/testAsync', tweeter.testAsync);
+//app.get('/fullResultsPage', tweeter.fullResultsPage);
 
 // POSTS
 app.post('/searchTweets', tweeter.searchTweets);
 app.post('/testAsync', tweeter.testAsync);
+//app.post('/goToResultsPage', tweeter.goToResultsPage);
 
 // FOR DEBUGGING PURPOSES
 app.get('/displayTweets', tweeter.displayRelevantTweets);

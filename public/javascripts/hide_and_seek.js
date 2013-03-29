@@ -8,8 +8,16 @@
     	$('#d3_visualization').show();
     	$('#leaderboard').show();
     });
-    //$('#d3_visualization').show();
-    //$('#leaderboard').show();
     return false;
-  })
+    })
+
+    $('#async_form').on('submit', function () {
+    $.post("/testAsync", $('#async_form').serialize(), function(html, flag, xhr){
+        console.log("THe HTML IS: ", html);
+        $("#results_row").html(html);
+        $('#d3_visualization').show();
+        $('#leaderboard').show();
+    });
+    return false;
+    })
  })
