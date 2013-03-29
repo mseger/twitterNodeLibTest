@@ -19,6 +19,7 @@ exports.newTweet = function(req, res){
 	});
 }
 
+// JULIANA THIS IS THE ONE YOU WANT TO FOCUS ON 
 exports.testAsync = function(req, res){
   async.auto({
       clearing_tweets: function(callback){
