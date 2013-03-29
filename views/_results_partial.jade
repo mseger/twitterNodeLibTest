@@ -2,19 +2,29 @@ div.circles.span11(id="d3_visualization", style="display:none")
   center
     h2  Superconduction Map 
   hr
+  input(type='hidden', id='tweeters', value='#{tweeters}')
 script(src='http://d3js.org/d3.v3.min.js')
 script(type='text/javascript')
+      var tweeters = !{JSON.stringify(tweeters)};
+      var tweeter_names = [];
+      var tweeter_retweets = [];
+      var tweeter_followers = [];
+      for(i=0; i<tweeters.length; i++){
+      tweeter_names[i] = tweeters[i].user_name;
+      tweeter_retweets[i] = tweeters[i].num_retweets;
+      tweeter_followers[i] = tweeters[i].num_followers;
+      }
+      console.log(tweeters.length);
       var width = 960,
       height = 500;
-      magic_nums = []
+      magic_nums = [];
       for (i=0; i<77; i++){
       magic_nums[i] = Math.random()*15
       }
-      console.log(magic_nums);
       var color = d3.scale.category10();
       var force = d3.layout.force()
       .charge(-120)
-      .linkDistance(30)
+      .linkDistance(150)
       .size([width, height]);
       var svg = d3.select("#d3_visualization").append("svg")
       .attr("width", width)
@@ -30,17 +40,40 @@ script(type='text/javascript')
       .attr("class", "link")
       .style("stroke-width", function(d) { return Math.sqrt(d.value); });
       names = [];
-      for(var i=0; i<graph.nodes.length; i++){
-      names[i]=graph.nodes[i].name;
+      retweets = [];
+      followers = [];
+      minval = graph.nodes.length - tweeters.length;
+      for(var i=0; i<82; i++){
+      if (i > minval){
+      names[i]=tweeter_names[82-i];
+      retweets[i]=tweeter_retweets[82-i]+1;
+      followers[i]=tweeter_followers[82-i]+1;
       }
-      console.log(names);
+      else{
+      names[i]="bye";//graph.nodes[i].name;
+      retweets[i]=1;
+      }
+      }
       var node = svg.selectAll(".node")
       .data(graph.nodes)
       .enter().append("circle")
-      .attr("r", function(d) { return d.num*0.2+5; })
-      .style("fill", function(d) { return d3.rgb(d.num*2+30, d.num*5, 100)})//color(d.num); })
+      .attr("r", function(d) { return Math.pow(d.num, 3)*0.00008+2; })
+      .style("fill", function(d) {
+      return d3.rgb(Math.pow((retweets[d.num]),6)*0.00000001*followers[d.num], Math.pow((82-d.num),3)*2, d.num*12)
+      })
+      .style("opacity", function(d){
+      if(d.num <= 65){
+      return 0.0;
+      }
+      })
       .attr("class", "node")
       .call(force.drag);
+      svg.selectAll("circle")
+      .append("svg:title")
+      .text(function (d) {
+      console.log(names[d.num]);
+      return names[d.num];
+      });
       // node.append("circle")
       node.append("text")
       // .attr("dx", function(d){return -20})

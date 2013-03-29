@@ -3,7 +3,7 @@
  $(function () {
   $('#showToSearch_form').on('submit', function () {
     $.post("/searchTweets", $('#showToSearch_form').serialize(), function(html, flag, xhr){
-    	console.log("THe HTML IS: ", html);
+    	// console.log("THe HTML IS: ", html);
     	$("#results_row").html(html);
     	$('#d3_visualization').show();
     	$('#leaderboard').show();
@@ -13,7 +13,7 @@
 
     $('#async_form').on('submit', function () {
     $.post("/testAsync", $('#async_form').serialize(), function(html, flag, xhr){
-        console.log("THe HTML IS: ", html);
+        //console.log("THe HTML IS: ", html);
         $("#results_row").html(html);
         $('#d3_visualization').show();
         $('#leaderboard').show();
