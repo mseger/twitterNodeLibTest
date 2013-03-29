@@ -68,7 +68,8 @@ div.leaderboard.span4.pull-right(id="leaderboard", style="display:none")
             | Search for a term to display results!
         else
             each tweeter, i in tweeters
-                | The tweet is #{tweeter.user_name}
+                a #{tweeter.user_name} with #{tweeter.num_retweets}
+                br
 
             a(href='https://twitter.com/dismanntled', target="_blank")  @dismanntled 
             br

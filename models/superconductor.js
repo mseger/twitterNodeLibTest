@@ -7,6 +7,8 @@ var superconductorSchema = new Schema({
 	owner_id: Number, 
 	user_handle: String, 
 	user_name: String 
+
+	// note to self: want to add in num_followers as well as handle
 });
 
 var Superconductor = mongoose.model('Superconductor', superconductorSchema);

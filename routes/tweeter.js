@@ -49,15 +49,13 @@ exports.testAsync = function(req, res){
       }],
       ranking: ["searching", function(callback){
         console.log("Entering step 2");
-        Superconductor.find({keyword: req.body.asyncSearchTerm}).exec(function (err, docs){
-          //console.log("RESULTS OF Querying DB in step 2", docs);
+        Superconductor.find({keyword: req.body.asyncSearchTerm}).sort({'num_retweets': -1}).exec(function (err, docs){
           if(err)
             return callback(err, "Couldn't retrieve Superconductors from DB");
           callback(null, docs);
         });
       }],
       displaying: ["ranking", function(callback, results){
-        console.log("The superconductorList we're displaying is: ", results.ranking);
         res.render('_results_partial', {tweeters: results.ranking});
         callback(null, 'done');
       }]
