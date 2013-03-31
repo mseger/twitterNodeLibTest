@@ -101,15 +101,32 @@ div.leaderboard.span4.pull-right(id="leaderboard", style="display:none")
             | Search for a term to display results!
         else
             each tweeter, i in tweeters
-                a(href='https://twitter.com/' + '#{tweeter.user_handle}', target="_blank") #{tweeter.user_handle}
+                a(href='https://twitter.com/' + '#{tweeter.user_handle}', target="_blank", style="font-family:Titillium Web; font-size:20px;") #{tweeter.user_handle}
                 br
-                |  With #{tweeter.num_retweets} retweets and #{tweeter.num_followers} followers
-                br
-                button.btn.btn-primary Give gift    
+                p(style="font-family:Titillium Web; font-size:17px;") With #{tweeter.num_retweets} retweets and #{tweeter.num_followers} followers
+                button.btn.btn-primary(style="font-family:Titillium Web") Give gift    
                 br     
                 br
 
+div.leaderboard.span11(id="tweets-board", style="display:none")
+  center
+    h2 What Superconductors are Saying
+  hr
+  p
+    if tweeters.length == 0 
+          | Search for a term to display results!
+      else
+        table.table-striped
+          thead
+              tr
+                th User     
+                th Tweet
+            tbody
+              each tweeter, i in tweeters
+                tr
+                  td(style="color:#3147E9; font-family:Titillium Web; font-size:20px; padding-top:10px")   #{tweeter.user_handle}  
+                  td(style="padding-left:20px; font-family:Titillium Web; font-size:17px; padding-top:10px")   #{tweeter.tweet_text}  
 
-
+                 
 
 

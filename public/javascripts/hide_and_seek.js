@@ -17,6 +17,7 @@
         $("#results_row").html(html);
         $('#d3_visualization').show();
         $('#leaderboard').show();
+        $('#tweets-board').show();
     });
     return false;
     })
